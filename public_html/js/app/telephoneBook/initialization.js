@@ -8,7 +8,7 @@ var telephoneBook = {
                     sorting: true,
                     messages: RusLocalization,
                     actions: {
-                        listAction: 'controller/telephoneBook/list.php',    
+                        listAction: 'controller/router.php?controller=telephoneBookController&method=getAll',    
                         createAction: '/GettingStarted/CreatePerson',
                         updateAction: '/GettingStarted/UpdatePerson',
                         deleteAction: '/GettingStarted/DeletePerson'
@@ -28,8 +28,7 @@ var telephoneBook = {
                         },
                         Telephone: {
                             title: 'Телефон',
-                            create: false,
-                            edit: false
+                            edit: true
                         }
                                               
                     }
