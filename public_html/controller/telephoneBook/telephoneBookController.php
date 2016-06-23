@@ -7,6 +7,7 @@
  */
 
 require_once $_SERVER['DOCUMENT_ROOT']."/ok/public_html/model/DLL/Repositories/telephoneBookRepository.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ok/public_html/model/DLL/Entities/partnerCompanyEmploye.php';
 
 class telephoneBookController {
     private $db;
@@ -19,5 +20,16 @@ class telephoneBookController {
 
     public function getAll(){
         return $this->db->getAll();
+    }
+    
+    public function create(){
+        $partner = new partnerCompanyEmploye();
+        if (!empty($_POST["Name"]) && !empty($_POST["FullName"]) && !empty($_POST["Telephone"]))
+        {
+            $partner->setName ($_POST["Name"] );
+            $partner->setFullName ($_POST["FullName"] );
+            $partner->setTelephone ($_POST["Telephone"] );
+            return $this->db->create($partner);
+        } else            die ("Error Creating");
     }
 }

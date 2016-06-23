@@ -7,6 +7,7 @@
  */
 require_once $_SERVER['DOCUMENT_ROOT'].'/ok/public_html/model/DLL/mySqlConnection.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/ok/public_html/model/DLL/defaultMySqlConnectParams.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/ok/public_html/model/DLL/Entities/partnerCompanyEmploye.php';
 
 class telephoneBookRepository {
     private $connection;
@@ -35,5 +36,20 @@ class telephoneBookRepository {
         
         return json_encode($jTableResult);
        
+    }
+    
+    public function create ($partnerCompaneEmpl) {
+        $this->connection->connect();
+        $result = mysql_query("INSERT INTO partnercompanyemployes(Name, FullName, Telephone) VALUES(UUID(),'" . $partnerCompaneEmpl->getName() . "', '" . $partnerCompaneEmpl->getFullName() ."',".$partnerCompaneEmpl->getTelephone().");");
+        //Get last inserted record (to return to jTable)
+        $result = mysql_query("SELECT * FROM partnercompanyemployes WHERE Id = LAST_INSERT_ID();");
+        $this->connection->disconnect();
+        $row = mysql_fetch_array($result);
+
+        //Return result to jTable
+        $jTableResult = array();
+        $jTableResult['Result'] = "OK";
+        $jTableResult['Record'] = $row;
+        return json_encode($jTableResult);
     }
 }

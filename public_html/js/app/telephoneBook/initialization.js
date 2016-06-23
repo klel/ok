@@ -9,7 +9,27 @@ var telephoneBook = {
                     messages: RusLocalization,
                     actions: {
                         listAction: 'controller/router.php?controller=telephoneBookController&method=getAll',    
-                        createAction: '/GettingStarted/CreatePerson',
+                        createAction: function createItem(postData) {
+                            var ret;
+                            return $.Deferred(function ($dfd) {
+                                $.ajax({
+                                    url: '/testCreate.php',
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: postData,
+                                    success: function (data) {
+                                        ret = {
+                                            'Result': "OK",
+                                            'Record': data
+                                        };
+                                        $dfd.resolve(ret);
+                                    },
+                                    error: function () {
+                                        $dfd.reject();
+                                    }
+                                });
+                            });
+                        },
                         updateAction: '/GettingStarted/UpdatePerson',
                         deleteAction: '/GettingStarted/DeletePerson'
                     },

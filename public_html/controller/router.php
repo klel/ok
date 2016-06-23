@@ -19,11 +19,24 @@ switch($_GET['controller'])
                         case "getAll" : 
                             print($controller->getAll());
                             break;
+//                        case "create" : 
+//                            print($controller->create());
+//                            break;
                         default : 
                             print 'ERROR method';
                         break;
                 }
 		break;
+                switch ($_POST['method'])
+                {
+                    case "create" : 
+                            print($controller->create());
+                            print ("done create controller");
+                            break;
+                        default : 
+                            print 'ERROR method post';
+                        break;
+                }
 
 	default : 
             print 'ERROR contler';
